@@ -1,0 +1,103 @@
+# N <!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NINJA AI CONTROL HUB</title>
+    <style>
+        :root { --neon-green: #00ff00; --bg-dark: #0a0a0a; --panel-bg: #161616; }
+        body { background: var(--bg-dark); color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; overflow-x: hidden; }
+        
+        .container { padding: 15px; display: flex; flex-direction: column; align-items: center; }
+        h2 { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* Màn hình Stream AI */
+        #viewport {
+            width: 100%; max-width: 450px; height: 250px; background: black;
+            border: 2px solid var(--neon-green); position: relative; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+        }
+        .ai-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; border: 1px solid rgba(0, 255, 0, 0.3); }
+        .scanning-line { width: 100%; height: 2px; background: var(--neon-green); position: absolute; animation: scan 2s linear infinite; opacity: 0.5; }
+
+        /* Form Đăng nhập & Điều khiển */
+        .control-panel { width: 100%; max-width: 450px; background: var(--panel-bg); padding: 20px; border-radius: 12px; margin-top: 15px; box-sizing: border-box; }
+        input { 
+            width: 100%; padding: 12px; margin: 8px 0; background: #222; border: 1px solid #444; 
+            color: white; border-radius: 6px; box-sizing: border-box; outline: none;
+        }
+        input:focus { border-color: var(--neon-green); }
+        
+        button { 
+            width: 100%; padding: 15px; margin-top: 10px; background: var(--neon-green); 
+            border: none; color: black; font-weight: bold; border-radius: 6px; cursor: pointer;
+            transition: 0.3s; text-transform: uppercase;
+        }
+        button:active { transform: scale(0.95); opacity: 0.8; }
+
+        /* Thông số AI */
+        .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-top: 15px; }
+        .stat-box { background: #222; padding: 10px; border-radius: 8px; border-left: 3px solid var(--neon-green); font-size: 0.8em; }
+        .stat-box b { color: var(--neon-green); font-size: 1.2em; display: block; }
+
+        @keyframes scan { from { top: 0; } to { top: 100%; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Ninja AI - Roblox</h2>
+
+    <div id="viewport">
+        <div class="scanning-line"></div>
+        <div class="ai-overlay" id="overlay"></div>
+        <div style="color: #444; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Đang chờ tín hiệu luồng...</div>
+    </div>
+
+    <div class="control-panel">
+        <input type="text" id="rbx_user" placeholder="Tài khoản Roblox">
+        <input type="password" id="rbx_pass" placeholder="Mật khẩu">
+        <button onclick="activateAI()">Kích hoạt hệ thống AI</button>
+        
+        <div class="stats">
+            <div class="stat-box">Items phát hiện: <b id="item_count">0</b></div>
+            <div class="stat-box">Mục tiêu tàng hình: <b id="stealth_count" style="color: #ff3333;">0</b></div>
+            <div class="stat-box">RAM tiêu thụ: <b id="ram_usage">0.0 MB</b></div>
+            <div class="stat-box">Tình trạng: <b id="status" style="color: #00ffff;">READY</b></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function activateAI() {
+        const user = document.getElementById('rbx_user').value;
+        const status = document.getElementById('status');
+        
+        if(user === "") {
+            alert("Vui lòng nhập tài khoản!");
+            return;
+        }
+
+        status.innerText = "CONNECTING...";
+        status.style.color = "#ffaa00";
+
+        // Giả lập logic AI quét dữ liệu
+        setTimeout(() => {
+            status.innerText = "AI ACTIVE";
+            status.style.color = "#00ff00";
+            startScanning();
+        }, 2000);
+    }
+
+    function startScanning() {
+        // Cập nhật thông số giả lập để Ninja thấy sức mạnh AI
+        setInterval(() => {
+            document.getElementById('item_count').innerText = Math.floor(Math.random() * 100);
+            document.getElementById('stealth_count').innerText = Math.floor(Math.random() * 5);
+            document.getElementById('ram_usage').innerText = (Math.random() * 0.5).toFixed(2) + " MB";
+        }, 1500);
+    }
+</script>
+
+</body>
+</html>
